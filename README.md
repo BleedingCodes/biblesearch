@@ -14,5 +14,5 @@ Want to know a specific verse, chapter to a book or a book. All you need is the 
 # (🤘Linux🤘):
 
 1. Download BibleSearch-Linux.tar.gz.
-2. Run tar ```-xzf BibleSearch-Linux.tar.gz```, then ```cd BibleSearch```.
+2. Run ```tar -xzf BibleSearch-Linux.tar.gz```, then ```cd BibleSearch```.
 3. Run ```./bible_script_win john 3:16```, or just ```./bible_script_win``` for the prompt.
