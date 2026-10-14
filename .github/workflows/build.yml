@@ -1,0 +1,55 @@
+name: Build and Release
+on: workflow_dispatch
+
+permissions:
+  contents: write
+
+env:
+  SCRIPT: yourscript.py
+  NAME: yourscript
+  BIBLE: Bible WEB version
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pyinstaller
+      - run: pyinstaller --onefile "$SCRIPT"
+      - name: Package
+        run: |
+          mkdir BibleSearch
+          cp dist/$NAME* BibleSearch/
+          cp "$BIBLE" BibleSearch/
+          if [ "${{ matrix.os }}" = "windows-latest" ]; then
+            powershell Compress-Archive -Path BibleSearch -DestinationPath BibleSearch-Windows.zip
+          else
+            tar -czf BibleSearch-Linux.tar.gz BibleSearch
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pkg-${{ matrix.os }}
+          path: BibleSearch-*
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: out
+          merge-multiple: true
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: BibleSearch
+          files: out/*
