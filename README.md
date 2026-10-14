@@ -36,4 +36,4 @@ Want to know a specific verse, chapter to a book or a book. All you need is the 
 4. Run: `termux-setup-storage` and tap **Allow** on the popup.
 5. Download the script and the Bible file from this repo, create a `BibleSearch` folder inside your phone's **Download** folder, and move both files into it.
 6. Run: `cd ~/storage/downloads/BibleSearch`
-7. Run: `python yourscript.py john 3:16`, or leave off the verse to get the prompt.
+7. Run: `python bible_script.py john 3:16`, or leave off the verse to get the prompt.
