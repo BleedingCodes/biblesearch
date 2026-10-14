@@ -5,8 +5,8 @@ permissions:
   contents: write
 
 env:
-  SCRIPT: bible_script.py
-  NAME: bible_script
+  SCRIPT: bible_script_win.py
+  NAME: bible_script_win
   BIBLE: Bible WEB version
 
 jobs:
